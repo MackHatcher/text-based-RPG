@@ -12,14 +12,14 @@ namespace OOP_RPG
         public int CurrentHP { get; set; }
         public int Gold { get; set; }
 
-        public Monster(string name, int strength, int defense, int originalHP, int currentHP)
+        public Monster(string name, int strength, int defense, int originalHP, int currentHP, int gold)
         {
             Name = name;
             Strength = strength;
             Defense = defense;
             OriginalHP = originalHP;
             CurrentHP = originalHP;
-            Gold = 5;
+            Gold = gold;
         }
     }
     

@@ -16,16 +16,16 @@ namespace OOP_RPG
             this.Monsters = new List<Monster>();
             this.hero = hero;
             this.game = game;
-            this.AddMonster("Squid", 9, 8, 20);
-            this.AddMonster("Werewolf", 10, 12, 22);
-            this.AddMonster("Vampire", 12, 10, 25);
-            this.AddMonster("Zombie", 9, 8, 18);
+            this.AddMonster("Knoll", 9, 8, 20, 2);
+            this.AddMonster("Zombie", 9, 8, 18, 2);
+            this.AddMonster("Werewolf", 10, 12, 22, 4);
+            this.AddMonster("Vampire", 12, 10, 25, 5);
+            
    
         }
         
-        public void AddMonster(string name, int strength, int defense, int hp) {
-            var monster = new Monster(name, strength, defense, hp, hp);
-        
+        public void AddMonster(string name, int strength, int defense, int hp, int gold) {
+            var monster = new Monster(name, strength, defense, hp, hp, gold);
             this.Monsters.Add(monster);
         }
         
@@ -92,10 +92,7 @@ namespace OOP_RPG
                 Console.WriteLine("o=====|=================================> <=================================|=====o");
                 Console.WriteLine("");
                 this.Fighting();
-            }
-
-
-            
+            }    
         }
 
         public void Fighting()
@@ -121,10 +118,7 @@ namespace OOP_RPG
                 Console.WriteLine("You managed to escape with your tail between your legs! What would you like to do now?");
                 this.game.Main();
             }
-
         }
-
-
 
         public void HeroTurn(){
            var enemy = monster;
@@ -147,33 +141,40 @@ namespace OOP_RPG
            else
            {
                this.MonsterTurn();
-           }
-           
+           }           
         }
 
         public void TakePotion()
         {
-            
             Console.WriteLine($"What would  you like to do?");
             Console.WriteLine($"1. Take a potion: (3) remaining.");
             Console.WriteLine($"2. Return to combat.");
             var input = Console.ReadLine();
             var player = hero;
             if (input == "1")
-            {
-                hero.CurrentHP = hero.CurrentHP + 6;
-                Console.WriteLine("You have healed for _ health points!");
-                Console.WriteLine("Press any key to return to combat");
-                Console.ReadLine();
-                this.HeroTurn();
+            {   if (player.CurrentHP < 30)
+                {
+                    player.CurrentHP = player.CurrentHP + 6;
+                    if (player.CurrentHP > player.OriginalHP)
+                    {
+                        player.CurrentHP = player.OriginalHP;
+                    };
+                    Console.WriteLine("You have restored 6 health!");
+                    Console.WriteLine("Press any key to return to combat");
+                    Console.ReadLine();
+                    this.Fighting();
+                }
+                else
+                {
+                    Console.WriteLine("You already fully healed! Press any key to return to combat.");
+                    Console.ReadLine();
+                    this.Fighting();
+                }    
             }
             else if (input == "2")
             {
-                this.HeroTurn();
+                this.Fighting();
             }
-            
-
-            
         }
         
         public void MonsterTurn(){
@@ -212,7 +213,5 @@ namespace OOP_RPG
             Console.ReadLine();
             return;
         }
-        
     }
-    
 }

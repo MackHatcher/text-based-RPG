@@ -16,12 +16,12 @@ namespace OOP_RPG
         public Hero() {
             this.ArmorsBag = new List<Armor>();
             this.WeaponsBag = new List<Weapon>();
+            this.PotionsBag = new List<Potion>();
             this.Strength = 10;
             this.Defense = 10;
             this.OriginalHP = 30;
             this.CurrentHP = 30;
             this.Gold = 0;
-            this.PotionsBag = new List<Potion>();
         }
         
         // These are the Properties of our Class.
@@ -59,7 +59,7 @@ namespace OOP_RPG
                 Console.WriteLine(a.Name + " of " + a.Defense + " Defense");
             }
             Console.WriteLine($"Wallet: {this.Gold} gold");
-            Console.WriteLine($"Health Potions: {this.HealthPotion}");
+            Console.WriteLine($"Health Potions: {this.HealthPotion} / 3");
 
 
         }
