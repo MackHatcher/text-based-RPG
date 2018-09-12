@@ -44,7 +44,7 @@ namespace OOP_RPG
             {
                 this.monster = this.Monsters[0];
                 Console.WriteLine($"You encountered a {this.monster.Name} , it has {this.monster.Strength} Strength, {this.monster.Defense} Defense and {this.monster.OriginalHP} Health Points.");
-                Console.WriteLine("_______________________________________________________________________________");
+                Console.WriteLine("o=====|=================================> <=================================|=====o");
                 Console.WriteLine("");
                 this.Fighting();
             }
@@ -52,13 +52,13 @@ namespace OOP_RPG
             {
                 this.monster = this.Monsters[3];
                 Console.WriteLine($"You encountered a {this.monster.Name} , it has {this.monster.Strength} Strength, {this.monster.Defense} Defense and {this.monster.OriginalHP} Health Points.");
-                Console.WriteLine("_______________________________________________________________________________");
+                Console.WriteLine("o=====|=================================> <=================================|=====o");
                 Console.WriteLine("");
                 this.Fighting();
             } else if ( input == "3")
             {
                 this.monster = this.Monsters[1];
-                Console.WriteLine("_______________________________________________________________________________");
+                Console.WriteLine("o=====|=================================> <=================================|=====o");
                 Console.WriteLine("");
                 this.Fighting();
             }
@@ -69,7 +69,7 @@ namespace OOP_RPG
                 where m.OriginalHP < 20
                 select m).FirstOrDefault();
                 Console.WriteLine($"You encountered a {this.monster.Name} , it has {this.monster.Strength} Strength, {this.monster.Defense} Defense and {this.monster.OriginalHP} Health Points.");
-                Console.WriteLine("_______________________________________________________________________________");
+                Console.WriteLine("o=====|=================================> <=================================|=====o");
                 Console.WriteLine("");
                 this.Fighting();
             }
@@ -80,7 +80,7 @@ namespace OOP_RPG
                 where m.Strength > 11
                 select m).FirstOrDefault();
                 Console.WriteLine($"You encountered a {this.monster.Name} , it has {this.monster.Strength} Strength, {this.monster.Defense} Defense and {this.monster.OriginalHP} Health Points.");
-                Console.WriteLine("_______________________________________________________________________________");
+                Console.WriteLine("o=====|=================================> <=================================|=====o");
                 Console.WriteLine("");
                 this.Fighting();
             }
@@ -89,7 +89,7 @@ namespace OOP_RPG
                 var rand = new Random();
                 this.monster = Monsters[rand.Next(Monsters.Count)];
                 Console.WriteLine($"You encountered a {this.monster.Name} , it has {this.monster.Strength} Strength, {this.monster.Defense} Defense and {this.monster.OriginalHP} Health Points.");
-                Console.WriteLine("_______________________________________________________________________________");
+                Console.WriteLine("o=====|=================================> <=================================|=====o");
                 Console.WriteLine("");
                 this.Fighting();
             }
@@ -104,13 +104,19 @@ namespace OOP_RPG
             var currentlyfighting = monster;
             Console.WriteLine("It's your move! What will you do?");
             Console.WriteLine("1. Melee Attack");
-            Console.WriteLine("2. Run Away");
+            Console.WriteLine("2. Take potion");
+            Console.WriteLine("3. Run Away");
             var input = Console.ReadLine();
             if (input == "1")
             {
                 this.HeroTurn();
             }
             else if (input == "2")
+            {
+                this.TakePotion();
+            }
+
+            else if (input == "3")
             {
                 Console.WriteLine("You managed to escape with your tail between your legs! What would you like to do now?");
                 this.game.Main();
@@ -144,6 +150,31 @@ namespace OOP_RPG
            }
            
         }
+
+        public void TakePotion()
+        {
+            
+            Console.WriteLine($"What would  you like to do?");
+            Console.WriteLine($"1. Take a potion: (3) remaining.");
+            Console.WriteLine($"2. Return to combat.");
+            var input = Console.ReadLine();
+            var player = hero;
+            if (input == "1")
+            {
+                hero.CurrentHP = hero.CurrentHP + 6;
+                Console.WriteLine("You have healed for _ health points!");
+                Console.WriteLine("Press any key to return to combat");
+                Console.ReadLine();
+                this.HeroTurn();
+            }
+            else if (input == "2")
+            {
+                this.HeroTurn();
+            }
+            
+
+            
+        }
         
         public void MonsterTurn(){
            var enemy = monster;
@@ -170,7 +201,9 @@ namespace OOP_RPG
         
         public void Win() {
             var enemy = monster;
-            Console.WriteLine(enemy.Name + " has been defeated! You win the battle!");
+            var player = hero;
+            Console.WriteLine($"{enemy.Name} has been defeated! Congratulations, you won the battle! You managed to loot {enemy.Gold} gold from their dead body.");
+            player.Gold = player.Gold + enemy.Gold;
             game.Main();
         }
         

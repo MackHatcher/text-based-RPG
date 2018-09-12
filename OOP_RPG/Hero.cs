@@ -20,6 +20,8 @@ namespace OOP_RPG
             this.Defense = 10;
             this.OriginalHP = 30;
             this.CurrentHP = 30;
+            this.Gold = 0;
+            this.PotionsBag = new List<Potion>();
         }
         
         // These are the Properties of our Class.
@@ -28,22 +30,26 @@ namespace OOP_RPG
         public int Defense { get; set; }
         public int OriginalHP { get; set; }
         public int CurrentHP { get; set; }
+        public int Gold { get; set; }
+        public Potion HealthPotion { get; set; }
         public Weapon EquippedWeapon { get; set; }
         public Armor EquippedArmor { get; set; }
         
         public List<Armor> ArmorsBag { get; set;}
         public List <Weapon> WeaponsBag { get; set; }
+        public List<Potion> PotionsBag { get; set; }
+       
         
         //These are the Methods of our Class.
         public void ShowStats() {
-            Console.WriteLine("*****" + this.Name + "*****");
-            Console.WriteLine("Strength: " + this.Strength);
+            Console.WriteLine($"o ==|=======> {this.Name} <=======|== o");
+            Console.WriteLine($"Strength: { this.Strength}");
             Console.WriteLine("Defense: " + this.Defense);
             Console.WriteLine("Hitpoints: " + this.CurrentHP + "/" + this.OriginalHP);
         }
         
         public void ShowInventory() {
-            Console.WriteLine("*****  INVENTORY ******");
+            Console.WriteLine("o ==|=======>  INVENTORY <=======|== o");
             Console.WriteLine("Weapons: ");
             foreach(var w in this.WeaponsBag){
                 Console.WriteLine(w.Name + " of " + w.Strength + " Strength");
@@ -52,6 +58,10 @@ namespace OOP_RPG
             foreach(var a in this.ArmorsBag){
                 Console.WriteLine(a.Name + " of " + a.Defense + " Defense");
             }
+            Console.WriteLine($"Wallet: {this.Gold} gold");
+            Console.WriteLine($"Health Potions: {this.HealthPotion}");
+
+
         }
         
         public void EquipWeapon() {
