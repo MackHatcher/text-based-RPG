@@ -31,9 +31,9 @@ namespace OOP_RPG
         {
 
             Console.WriteLine("Here's what potions we have available:");
-            Console.WriteLine("1. Healing Potion (heals for 5hp) - 3gp");
-            Console.WriteLine("2. Greater Healing Potion (heals for 10hp) - 6gp");
-            Console.WriteLine("3. Superior Healing Potion (heals for 15hp) - 8gp");
+            Console.WriteLine($"1. {PotionStock[0].Name} ({PotionStock[0].Hp} hp) - {PotionStock[0].OriginalValue} gp");
+            Console.WriteLine($"2. {PotionStock[1].Name} ({PotionStock[1].Hp} hp) - {PotionStock[1].OriginalValue} gp");
+            Console.WriteLine($"3. {PotionStock[2].Name} ({PotionStock[2].Hp} hp) - {PotionStock[2].OriginalValue} gp");
             Console.WriteLine("4. Return to Shop Front");
             var potionInput = Console.ReadLine();
             if (potionInput == "1")
@@ -108,13 +108,13 @@ namespace OOP_RPG
         {
 
             Console.WriteLine("Here's what the Blacksmith has available today:");
-            Console.WriteLine("1. Knobbly Branch (+2 Str) - 3gp");
-            Console.WriteLine("2. Squire's Sword (+3 Str) - 4gp");
-            Console.WriteLine("3. Woodcutter's Axe (+4 Str) - 5gp");
-            Console.WriteLine("4. Knight's Mace (+5 Str) - 6gp");
-            Console.WriteLine("5. Knight's Blade (+6 Str) - 7gp");
-            Console.WriteLine("6. Executioner's Axe (+6 Str) - 8gp");
-            Console.WriteLine("7. Return to Shop Front");
+            Console.WriteLine($"1. {WeaponStock[0].Name} ({WeaponStock[0].Strength} Strength) - {WeaponStock[0].OriginalValue} gp");
+            Console.WriteLine($"2. {WeaponStock[1].Name} ({WeaponStock[1].Strength} Strength) - {WeaponStock[1].OriginalValue} gp");
+            Console.WriteLine($"3. {WeaponStock[2].Name} ({WeaponStock[2].Strength} Strength) - {WeaponStock[2].OriginalValue} gp");
+            Console.WriteLine($"4. {WeaponStock[3].Name} ({WeaponStock[3].Strength} Strength) - {WeaponStock[3].OriginalValue} gp");
+            Console.WriteLine($"5. {WeaponStock[4].Name} ({WeaponStock[4].Strength} Strength) - {WeaponStock[4].OriginalValue} gp");
+            Console.WriteLine($"6. {WeaponStock[5].Name} ({WeaponStock[5].Strength} Strength) - {WeaponStock[5].OriginalValue} gp");
+            Console.WriteLine($"7. Return to Shop Front");
 
             var weaponInput = Console.ReadLine();
             if (weaponInput == "1")
@@ -242,9 +242,9 @@ namespace OOP_RPG
         {
 
             Console.WriteLine("Here's what the armorsmith has available today:");
-            Console.WriteLine("1. Leather Armor (+5 Def) - 7gp");
-            Console.WriteLine("2. Studded Leather Armor (+7 Def) - 10gp");
-            Console.WriteLine("3. Chain Armor (+10 Def) - 15gp");
+            Console.WriteLine($"1. {ArmorStock[0].Name} ({ArmorStock[0].Defense} Defense) - {ArmorStock[0].OriginalValue} gp");
+            Console.WriteLine($"2. {ArmorStock[1].Name} ({ArmorStock[1].Defense} Defense) - {ArmorStock[1].OriginalValue} gp");
+            Console.WriteLine($"3. {ArmorStock[2].Name} ({ArmorStock[2].Defense} Defense) - {ArmorStock[2].OriginalValue} gp");
             Console.WriteLine("4. Return to Shop Front");
 
             var armorInput = Console.ReadLine();

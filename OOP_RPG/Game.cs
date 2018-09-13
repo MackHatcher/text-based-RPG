@@ -87,12 +87,12 @@ namespace OOP_RPG
             var sword2 = new Weapon("Knight's Blade", 6, 7, 5);
             var axe2 = new Weapon("Executioner's Axe", 6, 8, 6);
             var weaponStock = new List<Weapon>();
-            weaponStock.Add(axe1);
-            weaponStock.Add(axe2);
-            weaponStock.Add(sword1);
-            weaponStock.Add(sword2);
             weaponStock.Add(club1);
+            weaponStock.Add(sword1);
+            weaponStock.Add(axe1);
             weaponStock.Add(club2);
+            weaponStock.Add(sword2);
+            weaponStock.Add(axe2);
             var armor1 = new Armor("Leather Armor", 5, 7, 5);
             var armor2 = new Armor("Studded Leather Armor", 7, 10, 5);
             var armor3 = new Armor("Chain Armor", 10, 15, 12);
