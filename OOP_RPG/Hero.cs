@@ -21,7 +21,7 @@ namespace OOP_RPG
             this.Defense = 10;
             this.OriginalHP = 30;
             this.CurrentHP = 30;
-            this.Gold = 50;
+            this.Gold = Gold;
         }
         
         // These are the Properties of our Class.
@@ -49,7 +49,11 @@ namespace OOP_RPG
         }
         
         public void ShowInventory() {
+            
+            
             Console.WriteLine("o ==|=======>  INVENTORY <=======|== o");
+            Console.WriteLine($"Wallet: {this.Gold} gold");
+            Console.WriteLine("");
             Console.WriteLine("Weapons: ");
             foreach(var w in this.WeaponsBag){
                 Console.WriteLine(w.Name + " of " + w.Strength + " Strength");
@@ -58,17 +62,13 @@ namespace OOP_RPG
             foreach(var a in this.ArmorsBag){
                 Console.WriteLine(a.Name + " of " + a.Defense + " Defense");
             }
-            Console.WriteLine($"Wallet: {this.Gold} gold");
+            
             Console.WriteLine($"Health Potions: ");
 
             foreach (var p in this.PotionsBag.GroupBy(p=> p.Name))
             {               
                     Console.WriteLine($"{p.Key}: ({p.Count()})");
-               
-                
             }
-
-
         }
         
         public void EquipWeapon() {

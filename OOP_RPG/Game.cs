@@ -107,7 +107,7 @@ namespace OOP_RPG
             potionStock.Add(potion1);
             potionStock.Add(potion2);
             potionStock.Add(potion3);
-            var shopFront = new Shop(armorStock, weaponStock, potionStock, this);
+            var shopFront = new Shop(armorStock, weaponStock, potionStock, this, hero);
             return shopFront;
 
         }
