@@ -21,7 +21,7 @@ namespace OOP_RPG
             this.Defense = 10;
             this.OriginalHP = 30;
             this.CurrentHP = 30;
-            this.Gold = 0;
+            this.Gold = 50;
         }
         
         // These are the Properties of our Class.
@@ -59,7 +59,14 @@ namespace OOP_RPG
                 Console.WriteLine(a.Name + " of " + a.Defense + " Defense");
             }
             Console.WriteLine($"Wallet: {this.Gold} gold");
-            Console.WriteLine($"Health Potions: {this.HealthPotion} / 3");
+            Console.WriteLine($"Health Potions: ");
+
+            foreach (var p in this.PotionsBag.GroupBy(p=> p.Name))
+            {               
+                    Console.WriteLine($"{p.Key}: ({p.Count()})");
+               
+                
+            }
 
 
         }

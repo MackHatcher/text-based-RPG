@@ -11,15 +11,16 @@ namespace OOP_RPG
         public Hero hero { get; set; }
         public Monster monster { get; set; }
         
+        
         public Fight(Hero hero, Game game) {
 
             this.Monsters = new List<Monster>();
             this.hero = hero;
             this.game = game;
-            this.AddMonster("Knoll", 9, 8, 20, 2);
-            this.AddMonster("Zombie", 9, 8, 18, 2);
-            this.AddMonster("Werewolf", 10, 12, 22, 4);
-            this.AddMonster("Vampire", 12, 10, 25, 5);
+            this.AddMonster("Knoll", 9, 8, 10, 3);
+            this.AddMonster("Zombie", 9, 8, 11, 4);
+            this.AddMonster("Werewolf", 10, 12, 14, 6);
+            this.AddMonster("Vampire", 12, 10, 20, 8);
             
    
         }
@@ -58,6 +59,7 @@ namespace OOP_RPG
             } else if ( input == "3")
             {
                 this.monster = this.Monsters[1];
+                Console.WriteLine($"You encountered a {this.monster.Name} , it has {this.monster.Strength} Strength, {this.monster.Defense} Defense and {this.monster.OriginalHP} Health Points.");
                 Console.WriteLine("o=====|=================================> <=================================|=====o");
                 Console.WriteLine("");
                 this.Fighting();
@@ -147,19 +149,54 @@ namespace OOP_RPG
         public void TakePotion()
         {
             Console.WriteLine($"What would  you like to do?");
-            Console.WriteLine($"1. Take a potion: (3) remaining.");
-            Console.WriteLine($"2. Return to combat.");
+            Console.WriteLine($"1. Take a Potion.");
+            Console.WriteLine($"2. Return to Combat.");
             var input = Console.ReadLine();
             var player = hero;
             if (input == "1")
-            {   if (player.CurrentHP < 30)
+            { Console.WriteLine("Which Potion would you like to take?");
+                foreach (var p in hero.PotionsBag.GroupBy(p => p.Name))
                 {
-                    player.CurrentHP = player.CurrentHP + 6;
+                    Console.WriteLine($"{p.Key}: ({p.Count()})");
+
+
+                }
+
+
+
+                var potionInput = Console.ReadLine();
+                if (potionInput == "1" && player.CurrentHP < 30)
+                {
+                    player.CurrentHP = player.CurrentHP + game.hero.PotionsBag[0].Hp;
                     if (player.CurrentHP > player.OriginalHP)
                     {
                         player.CurrentHP = player.OriginalHP;
                     };
-                    Console.WriteLine("You have restored 6 health!");
+                    Console.WriteLine($"You have restored {game.hero.PotionsBag[0].Hp} health!");
+                    Console.WriteLine("Press any key to return to combat");
+                    Console.ReadLine();
+                    this.Fighting();
+                }
+                else if (potionInput == "2" && player.CurrentHP < 30)
+                {
+                    player.CurrentHP = player.CurrentHP + game.hero.PotionsBag[1].Hp;
+                    if (player.CurrentHP > player.OriginalHP)
+                    {
+                        player.CurrentHP = player.OriginalHP;
+                    };
+                    Console.WriteLine($"You have restored {game.hero.PotionsBag[1].Hp} health!");
+                    Console.WriteLine("Press any key to return to combat");
+                    Console.ReadLine();
+                    this.Fighting();
+                }
+                else if (potionInput == "3" && player.CurrentHP < 30)
+                {
+                    player.CurrentHP = player.CurrentHP + game.hero.PotionsBag[2].Hp;
+                    if (player.CurrentHP > player.OriginalHP)
+                    {
+                        player.CurrentHP = player.OriginalHP;
+                    };
+                    Console.WriteLine($"You have restored {game.hero.PotionsBag[2].Hp} health!");
                     Console.WriteLine("Press any key to return to combat");
                     Console.ReadLine();
                     this.Fighting();

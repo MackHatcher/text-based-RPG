@@ -14,11 +14,12 @@ namespace OOP_RPG
 
         public Monster(string name, int strength, int defense, int originalHP, int currentHP, int gold)
         {
-            Name = name;
-            Strength = strength;
-            Defense = defense;
-            OriginalHP = originalHP;
-            CurrentHP = originalHP;
+            this.Name = name;
+            this.Strength = strength;
+            this.Defense = defense;
+            this.OriginalHP = originalHP;
+            this.CurrentHP = originalHP;
+            var random = new Random();
             Gold = gold;
         }
     }
