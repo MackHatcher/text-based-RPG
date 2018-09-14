@@ -17,16 +17,16 @@ namespace OOP_RPG
             this.Monsters = new List<Monster>();
             this.hero = hero;
             this.game = game;
-            this.AddMonster("Knoll", 9, 8, 10, 3);
-            this.AddMonster("Zombie", 9, 8, 11, 4);
-            this.AddMonster("Werewolf", 10, 12, 14, 6);
-            this.AddMonster("Vampire", 12, 10, 20, 8);
+            this.AddMonster("Knoll", 9, 8, 10, 3, 5);
+            this.AddMonster("Zombie", 9, 8, 11, 4, 5);
+            this.AddMonster("Werewolf", 10, 12, 14, 7, 12);
+            this.AddMonster("Vampire", 12, 10, 20, 8, 12);
             
    
         }
         
-        public void AddMonster(string name, int strength, int defense, int hp, int gold) {
-            var monster = new Monster(name, strength, defense, hp, hp, gold);
+        public void AddMonster(string name, int strength, int defense, int hp, int gold, int speed) {
+            var monster = new Monster(name, strength, defense, hp, hp, gold, speed);
             this.Monsters.Add(monster);
         }
         
@@ -37,7 +37,7 @@ namespace OOP_RPG
             Console.WriteLine("2. Fight the last monster on the list.");
             Console.WriteLine("3. Fight the second monster on the list.");
             Console.WriteLine("4. Fight the monster with the lowest health.");
-            Console.WriteLine("5. Fight the monster with the lowest Strength.");
+            Console.WriteLine("5. Fight the monster with at least 11 Strength.");
             Console.WriteLine("6. Fight random monster.");
 
             var input = Console.ReadLine();
@@ -117,8 +117,19 @@ namespace OOP_RPG
 
             else if (input == "3")
             {
-                Console.WriteLine("You managed to escape with your tail between your legs! What would you like to do now?");
-                this.game.Main();
+                if (hero.Speed > monster.Speed)
+                {
+                    Console.WriteLine("You managed to escape with your tail between your legs! What would you like to do now?");
+                    this.game.Main();
+                }
+                else
+                {
+                    Console.WriteLine($"Your attempt to run away failed. The {monster.Name} is too fast!");
+                    Console.WriteLine("The monster now gets an attack of opportunity against you!");
+                    this.MonsterTurn();
+                    
+                }
+                
             }
         }
 
@@ -158,12 +169,9 @@ namespace OOP_RPG
                 foreach (var p in hero.PotionsBag.GroupBy(p => p.Name))
                 {
                     Console.WriteLine($"{p.Key}: ({p.Count()})");
-
-
+                    
                 }
-
-
-
+                
                 var potionInput = Console.ReadLine();
                 if (potionInput == "1" && player.CurrentHP < 30)
                 {
