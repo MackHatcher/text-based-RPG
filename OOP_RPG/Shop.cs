@@ -29,79 +29,38 @@ namespace OOP_RPG
 
         public void BuyPotions()
         {
-
-            Console.WriteLine("Here's what potions we have available:");
-            Console.WriteLine($"1. {PotionStock[0].Name} ({PotionStock[0].Hp} hp) - {PotionStock[0].OriginalValue} gp");
-            Console.WriteLine($"2. {PotionStock[1].Name} ({PotionStock[1].Hp} hp) - {PotionStock[1].OriginalValue} gp");
-            Console.WriteLine($"3. {PotionStock[2].Name} ({PotionStock[2].Hp} hp) - {PotionStock[2].OriginalValue} gp");
-            Console.WriteLine("4. Return to Shop Front");
-            var potionInput = Console.ReadLine();
-            if (potionInput == "1")
+            for (var i = 0; i < this.PotionStock.Count(); i++)
             {
-                if (Game.hero.Gold >= PotionStock[0].OriginalValue)
+                Console.WriteLine($"{(i + 1)}. {this.PotionStock[i].Name}: {this.PotionStock[i].Hp} Health : ({this.PotionStock[i].OriginalValue} gp)");
+            }
+
+            var tryParse = int.TryParse(Console.ReadLine(), out var input);
+            var itemToBePurchased = PotionStock.ElementAtOrDefault(input - 1);
+            if (itemToBePurchased != null && tryParse)
+            {
+                if (Game.hero.Gold >= itemToBePurchased.OriginalValue && !Game.hero.PotionsBag.Contains(itemToBePurchased))
                 {
-                    Game.hero.PotionsBag.Add(this.PotionStock[0]);
-                    Game.hero.Gold = Game.hero.Gold - PotionStock[0].OriginalValue;
-                    Console.WriteLine($"Purchased for {this.PotionStock[0].OriginalValue} gp. You have {Game.hero.Gold}gp left!");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Game.hero.PotionsBag.Add(itemToBePurchased);
+                    Game.hero.Gold = Game.hero.Gold - itemToBePurchased.OriginalValue;
+                    Console.WriteLine($"Purchased for {itemToBePurchased.OriginalValue} gp. You have {Game.hero.Gold}gp left!");
                     Console.WriteLine("Press any key to return to the previous menu");
+                    Console.ResetColor();
                     var purchaseInput = Console.ReadLine();
                     ShopMenu();
                 }
-                else
-                {
-                    Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
-                    Console.ReadLine();
-                    Game.Main();
-
-
-                }
             }
-            else if (potionInput == "2")
+            else if (Game.hero.Gold < itemToBePurchased.OriginalValue)
             {
-                if (Game.hero.Gold >= PotionStock[1].OriginalValue)
-                {
-                    Game.hero.PotionsBag.Add(this.PotionStock[1]);
-                    Game.hero.Gold = Game.hero.Gold - PotionStock[1].OriginalValue;
-                    Console.WriteLine($"Purchased for {this.PotionStock[1].OriginalValue} gp. You have {Game.hero.Gold}gp left!");
-                    Console.WriteLine("Press any key to return to the previous menu");
-                    var purchaseInput = Console.ReadLine();
-                    ShopMenu();
-                }
-                else
-                {
-                    Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
-                    Console.ReadLine();
-                    Game.Main();
-                }
-            }
-            else if (potionInput == "3")
-            {
-                if (Game.hero.Gold >= PotionStock[2].OriginalValue)
-                {
-                    Game.hero.PotionsBag.Add(this.PotionStock[2]);
-                    Game.hero.Gold = Game.hero.Gold - PotionStock[2].OriginalValue;
-                    Console.WriteLine($"Purchased for {this.PotionStock[2].OriginalValue} gp. You have {Game.hero.Gold}gp left!");
-                    Console.WriteLine("Press any key to return to the previous menu");
-                    var purchaseInput = Console.ReadLine();
-                    ShopMenu();
-                }
-                else
-                {
-                    Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
-                    Console.ReadLine();
-                    Game.Main();
-                }
-            }
-            else if (potionInput == "4")
-            {
-                this.ShopMenu();
+                Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
                 Console.ReadLine();
-
+                ShopMenu();
             }
             else
             {
-                Console.WriteLine("Invalid input. Please try again");
-                Game.Main();
+                Console.WriteLine("Invalid input. Press any key to go to the previous menu.");
+                Console.ReadLine();
+                ShopMenu();
             }
         }
         public void BuyWeapons()
@@ -117,98 +76,64 @@ namespace OOP_RPG
             {
                 if (Game.hero.Gold >= itemToBePurchased.OriginalValue && !Game.hero.WeaponsBag.Contains(itemToBePurchased) && Game.hero.EquippedWeapon != itemToBePurchased)
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Game.hero.WeaponsBag.Add(itemToBePurchased);
                     Game.hero.Gold = Game.hero.Gold - itemToBePurchased.OriginalValue;
                     Console.WriteLine($"Purchased for {itemToBePurchased.OriginalValue} gp. You have {Game.hero.Gold}gp left!");
                     Console.WriteLine("Press any key to return to the previous menu");
-
+                    Console.ResetColor();
                     var purchaseInput = Console.ReadLine();
                     ShopMenu();
                 }
             } 
-            else
+            else if (Game.hero.Gold < itemToBePurchased.OriginalValue)
             {
                 Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
                 Console.ReadLine();
-                Game.Main();
+                ShopMenu();
+            }else
+            {
+                Console.WriteLine("Invalid input. Press any key to go to the previous menu.");
+                Console.ReadLine();
+                ShopMenu();
             }
             }
-        
         public void BuyArmor()
         {
 
             Console.WriteLine("Here's what the armorsmith has available today:");
-
             for (var i = 0; i < this.ArmorStock.Count(); i++)
             {
-                Console.WriteLine($"{(i + 1)}. {this.ArmorStock[i].Name}: {this.ArmorStock[i].Defense} Defense : ({this.WeaponStock[i].OriginalValue} gp)");
+                Console.WriteLine($"{(i + 1)}. {this.ArmorStock[i].Name}: {this.ArmorStock[i].Defense} Defense : ({this.ArmorStock[i].OriginalValue} gp)");
             }
-            
-            var armorInput = Console.ReadLine();
-            if (armorInput == "1")
-            {
-                if (Game.hero.Gold >= ArmorStock[0].OriginalValue && !Game.hero.ArmorsBag.Contains(ArmorStock[0]) && Game.hero.EquippedArmor != ArmorStock[0])
-                {
-                    Game.hero.ArmorsBag.Add(this.ArmorStock[0]);
-                    Game.hero.Gold = Game.hero.Gold - ArmorStock[0].OriginalValue;
-                    Console.WriteLine($"Purchased for {this.ArmorStock[0].OriginalValue} gp. You have {Game.hero.Gold}gp left!");
-                    Console.WriteLine("Press any key to return to the previous menu");
-                    var purchaseInput = Console.ReadLine();
-                    ShopMenu();
-                }
-                else
-                {
-                    Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
-                    Console.ReadLine();
-                    Game.Main();
-                }
-            }
-            else if (armorInput == "2")
-            {
-                if (Game.hero.Gold >= ArmorStock[1].OriginalValue && !Game.hero.ArmorsBag.Contains(ArmorStock[1]) && Game.hero.EquippedArmor != ArmorStock[1])
-                {
-                    Game.hero.ArmorsBag.Add(this.ArmorStock[1]);
-                    Game.hero.Gold = Game.hero.Gold - ArmorStock[1].OriginalValue;
-                    Console.WriteLine($"Purchased for {this.ArmorStock[1].OriginalValue} gp. You have {Game.hero.Gold}gp left!");
-                    Console.WriteLine("Press any key to return to the previous menu");
-                    var purchaseInput = Console.ReadLine();
-                    ShopMenu();
-                }
-                else
-                {
-                    Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
-                    Console.ReadLine();
-                    Game.Main();
-                }
-            }
-            else if (armorInput == "3")
-            {
-                if (Game.hero.Gold >= ArmorStock[2].OriginalValue && !Game.hero.ArmorsBag.Contains(ArmorStock[2]) && Game.hero.EquippedArmor != ArmorStock[2])
-                {
-                    Game.hero.ArmorsBag.Add(this.ArmorStock[2]);
-                    Game.hero.Gold = Game.hero.Gold - ArmorStock[2].OriginalValue;
-                    Console.WriteLine($"Purchased for {this.ArmorStock[2].OriginalValue} gp. You have {Game.hero.Gold}gp left!");
-                    Console.WriteLine("Press any key to return to the previous menu");
-                    var purchaseInput = Console.ReadLine();
-                    ShopMenu();
-                }
-                else
-                {
-                    Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
-                    Console.ReadLine();
-                    Game.Main();
-                }
-            }
-            else if (armorInput == "4")
-            {
-                this.ShopMenu();
-                Console.ReadLine();
 
+            var tryParse = int.TryParse(Console.ReadLine(), out var input);
+            var itemToBePurchased = ArmorStock.ElementAtOrDefault(input - 1);
+            if (itemToBePurchased != null && tryParse)
+            {
+                if (Game.hero.Gold >= itemToBePurchased.OriginalValue && !Game.hero.ArmorsBag.Contains(itemToBePurchased) && Game.hero.EquippedArmor != itemToBePurchased)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Game.hero.ArmorsBag.Add(itemToBePurchased);
+                    Game.hero.Gold = Game.hero.Gold - itemToBePurchased.OriginalValue;
+                    Console.WriteLine($"Purchased for {itemToBePurchased.OriginalValue} gp. You have {Game.hero.Gold}gp left!");
+                    Console.WriteLine("Press any key to return to the previous menu");
+                    Console.ResetColor();
+                    var purchaseInput = Console.ReadLine();
+                    ShopMenu();
+                }
+            }
+            else if (Game.hero.Gold < itemToBePurchased.OriginalValue)
+            {
+                Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
+                Console.ReadLine();
+                ShopMenu();
             }
             else
             {
-                Console.WriteLine("Invalid input. Please try again");
-                Game.Main();
+                Console.WriteLine("Invalid input. Press any key to go to the previous menu.");
+                Console.ReadLine();
+                ShopMenu();
             }
         }
         public void sellPotions()
@@ -377,11 +302,12 @@ namespace OOP_RPG
 
         public void ShopMenu()
         {
-
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($"Welcome to the shop. You have {Game.hero.Gold} gold to spend. What would you like to do?");
             Console.WriteLine($"1. Buy Items");
             Console.WriteLine($"2. Sell Items");
             Console.WriteLine($"3. Return to Main Menu");
+            Console.ResetColor();
             var shopFrontInput = Console.ReadLine();
             if (shopFrontInput == "1")
             {
