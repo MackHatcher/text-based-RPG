@@ -44,15 +44,17 @@ namespace OOP_RPG
         
         //These are the Methods of our Class.
         public void ShowStats() {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine($"o ==|=======> {this.Name} <=======|== o");
             Console.WriteLine($"Strength: { this.Strength}");
             Console.WriteLine("Defense: " + this.Defense);
             Console.WriteLine("Hitpoints: " + this.CurrentHP + "/" + this.OriginalHP);
+            Console.ResetColor();
         }
         
         public void ShowInventory() {
-            
-            
+
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("o ==|=======>  INVENTORY <=======|== o");
             Console.WriteLine($"Wallet: {this.Gold} gold");
             Console.WriteLine("");
@@ -61,9 +63,7 @@ namespace OOP_RPG
             {
                 Console.WriteLine($"{(i + 1)}. {this.WeaponsBag[i].Name}: {this.WeaponsBag[i].Strength} Strength.");
             }
-
-
-
+            
             Console.WriteLine("Armor: ");
             for (var i = 0; i < this.ArmorsBag.Count(); i++)
             {
@@ -122,7 +122,7 @@ namespace OOP_RPG
                     Console.ReadLine();
                     ShowInventory();
                 }
-            }
+            }Console.ResetColor();
             
         }
         

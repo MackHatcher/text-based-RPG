@@ -106,148 +106,44 @@ namespace OOP_RPG
         }
         public void BuyWeapons()
         {
-
-            Console.WriteLine("Here's what the Blacksmith has available today:");
-            Console.WriteLine($"1. {WeaponStock[0].Name} ({WeaponStock[0].Strength} Strength) - {WeaponStock[0].OriginalValue} gp");
-            Console.WriteLine($"2. {WeaponStock[1].Name} ({WeaponStock[1].Strength} Strength) - {WeaponStock[1].OriginalValue} gp");
-            Console.WriteLine($"3. {WeaponStock[2].Name} ({WeaponStock[2].Strength} Strength) - {WeaponStock[2].OriginalValue} gp");
-            Console.WriteLine($"4. {WeaponStock[3].Name} ({WeaponStock[3].Strength} Strength) - {WeaponStock[3].OriginalValue} gp");
-            Console.WriteLine($"5. {WeaponStock[4].Name} ({WeaponStock[4].Strength} Strength) - {WeaponStock[4].OriginalValue} gp");
-            Console.WriteLine($"6. {WeaponStock[5].Name} ({WeaponStock[5].Strength} Strength) - {WeaponStock[5].OriginalValue} gp");
-            Console.WriteLine($"7. Return to Shop Front");
-
-            var weaponInput = Console.ReadLine();
-            if (weaponInput == "1")
+            for (var i = 0; i < this.WeaponStock.Count(); i++)
             {
-                if (Game.hero.Gold >= WeaponStock[0].OriginalValue && !Game.hero.WeaponsBag.Contains(WeaponStock[0]) && Game.hero.EquippedWeapon != WeaponStock[0])
+                Console.WriteLine($"{(i + 1)}. {this.WeaponStock[i].Name}: {this.WeaponStock[i].Strength} Strength : ({this.WeaponStock[i].OriginalValue} gp)");
+            }
+
+            var tryParse = int.TryParse(Console.ReadLine(), out var input);
+            var itemToBePurchased = WeaponStock.ElementAtOrDefault(input - 1);
+            if (itemToBePurchased != null && tryParse)
+            {
+                if (Game.hero.Gold >= itemToBePurchased.OriginalValue && !Game.hero.WeaponsBag.Contains(itemToBePurchased) && Game.hero.EquippedWeapon != itemToBePurchased)
                 {
-                    Game.hero.WeaponsBag.Add(this.WeaponStock[0]);
-                    Game.hero.Gold = Game.hero.Gold - WeaponStock[0].OriginalValue;
-                    Console.WriteLine($"Purchased for {this.WeaponStock[0].OriginalValue} gp. You have {Game.hero.Gold}gp left!");
+                    Game.hero.WeaponsBag.Add(itemToBePurchased);
+                    Game.hero.Gold = Game.hero.Gold - itemToBePurchased.OriginalValue;
+                    Console.WriteLine($"Purchased for {itemToBePurchased.OriginalValue} gp. You have {Game.hero.Gold}gp left!");
                     Console.WriteLine("Press any key to return to the previous menu");
 
                     var purchaseInput = Console.ReadLine();
                     ShopMenu();
                 }
-                else
-                {
-                    Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
-                    Console.ReadLine();
-                    Game.Main();
-                }
-
-            }
-            else if (weaponInput == "2")
-            {
-                if (Game.hero.Gold >= WeaponStock[1].OriginalValue && !Game.hero.WeaponsBag.Contains(WeaponStock[1]) && Game.hero.EquippedWeapon != WeaponStock[1])
-                {
-                    Game.hero.WeaponsBag.Add(this.WeaponStock[1]);
-                    Game.hero.Gold = Game.hero.Gold - WeaponStock[1].OriginalValue;
-                    Console.WriteLine($"Purchased for {this.WeaponStock[1].OriginalValue} gp. You have {Game.hero.Gold}gp left!");
-                    Console.WriteLine("Press any key to return to the previous menu");
-                    var purchaseInput = Console.ReadLine();
-                    ShopMenu();
-                }
-                else
-                {
-                    Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
-                    Console.ReadLine();
-                    Game.Main();
-                }
-            }
-            else if (weaponInput == "3")
-            {
-                if (Game.hero.Gold >= WeaponStock[2].OriginalValue && !Game.hero.WeaponsBag.Contains(WeaponStock[2]) && Game.hero.EquippedWeapon != WeaponStock[2])
-                {
-                    Game.hero.WeaponsBag.Add(this.WeaponStock[2]);
-                    Game.hero.Gold = Game.hero.Gold - WeaponStock[2].OriginalValue;
-                    Console.WriteLine($"Purchased for {this.WeaponStock[2].OriginalValue} gp. You have {Game.hero.Gold}gp left!");
-                    Console.WriteLine("Press any key to return to the previous menu");
-                    var purchaseInput = Console.ReadLine();
-                    ShopMenu();
-                }
-                else
-                {
-                    Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
-                    Console.ReadLine();
-                    Game.Main();
-                }
-            }
-            else if (weaponInput == "4")
-            {
-                if (Game.hero.Gold >= WeaponStock[3].OriginalValue && !Game.hero.WeaponsBag.Contains(WeaponStock[3]) && Game.hero.EquippedWeapon != WeaponStock[3])
-                {
-                    Game.hero.WeaponsBag.Add(this.WeaponStock[3]);
-                    Game.hero.Gold = Game.hero.Gold - WeaponStock[3].OriginalValue;
-                    Console.WriteLine($"Purchased for {this.WeaponStock[3].OriginalValue} gp. You have {Game.hero.Gold}gp left!");
-                    Console.WriteLine("Press any key to return to the previous menu");
-                    var purchaseInput = Console.ReadLine();
-                    ShopMenu();
-                }
-                else
-                {
-                    Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
-                    Console.ReadLine();
-                    Game.Main();
-                }
-            }
-            else if (weaponInput == "5")
-            {
-                if (Game.hero.Gold >= WeaponStock[4].OriginalValue && !Game.hero.WeaponsBag.Contains(WeaponStock[4]) && Game.hero.EquippedWeapon != WeaponStock[4])
-                {
-                    Game.hero.WeaponsBag.Add(this.WeaponStock[4]);
-                    Game.hero.Gold = Game.hero.Gold - WeaponStock[4].OriginalValue;
-                    Console.WriteLine($"Purchased for {this.WeaponStock[4].OriginalValue} gp. You have {Game.hero.Gold}gp left!");
-                    Console.WriteLine("Press any key to return to the previous menu");
-                    var purchaseInput = Console.ReadLine();
-                    ShopMenu();
-                }
-                else
-                {
-                    Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
-                    Console.ReadLine();
-                    Game.Main();
-                }
-            }
-            else if (weaponInput == "6")
-            {
-                if (Game.hero.Gold >= WeaponStock[5].OriginalValue && !Game.hero.WeaponsBag.Contains(WeaponStock[5]) && Game.hero.EquippedWeapon != WeaponStock[5])
-                {
-                    Game.hero.WeaponsBag.Add(this.WeaponStock[5]);
-                    Game.hero.Gold = Game.hero.Gold - WeaponStock[5].OriginalValue;
-                    Console.WriteLine($"Purchased for {this.WeaponStock[5].OriginalValue} gp. You have {Game.hero.Gold}gp left!");
-                    Console.WriteLine("Press any key to return to the previous menu");
-                    var purchaseInput = Console.ReadLine();
-                    ShopMenu();
-                }
-                else
-                {
-                    Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
-                    Console.ReadLine();
-                    Game.Main();
-                }
-            }
-            else if (weaponInput == "7")
-            {
-                this.ShopMenu();
-                Console.ReadLine();
-
-            }
+            } 
             else
             {
-                Console.WriteLine("Invalid input. Please try again");
+                Console.WriteLine("Sorry, you don't have enough gp to purchase this. Please come back when you're a bit more affluent!");
+                Console.ReadLine();
                 Game.Main();
             }
-        }
+            }
+        
         public void BuyArmor()
         {
 
             Console.WriteLine("Here's what the armorsmith has available today:");
-            Console.WriteLine($"1. {ArmorStock[0].Name} ({ArmorStock[0].Defense} Defense) - {ArmorStock[0].OriginalValue} gp");
-            Console.WriteLine($"2. {ArmorStock[1].Name} ({ArmorStock[1].Defense} Defense) - {ArmorStock[1].OriginalValue} gp");
-            Console.WriteLine($"3. {ArmorStock[2].Name} ({ArmorStock[2].Defense} Defense) - {ArmorStock[2].OriginalValue} gp");
-            Console.WriteLine("4. Return to Shop Front");
 
+            for (var i = 0; i < this.ArmorStock.Count(); i++)
+            {
+                Console.WriteLine($"{(i + 1)}. {this.ArmorStock[i].Name}: {this.ArmorStock[i].Defense} Defense : ({this.WeaponStock[i].OriginalValue} gp)");
+            }
+            
             var armorInput = Console.ReadLine();
             if (armorInput == "1")
             {

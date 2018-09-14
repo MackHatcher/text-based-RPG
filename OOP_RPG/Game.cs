@@ -18,31 +18,44 @@ namespace OOP_RPG
         }
             
         public void Start() {
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("  _    _ ______ _____   ____             _______      ________ _   _ _______ _    _ _____  ______  _____ ");
             Console.WriteLine(" | |  | |  ____|  __ \\ / __ \\      /\\   |  __ \\ \\    / /  ____| \\ | |__   __| |  | |  __ \\|  ____|/ ____|");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(" | |__| | |__  | |__) | |  | |    /  \\  | |  | \\ \\  / /| |__  |  \\| |  | |  | |  | | |__) | |__  | (___  ");
             Console.WriteLine(" |  __  |  __| |  _  /| |  | |   / /\\ \\ | |  | |\\ \\/ / |  __| | . ` |  | |  | |  | |  _  /|  __|  \\___ \\ ");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.WriteLine(" | |  | | |____| | \\ \\| |__| |  / ____ \\| |__| | \\  /  | |____| |\\  |  | |  | |__| | | \\ \\| |____ ____) |");
             Console.WriteLine(" |_|  |_|______|_|  \\_ \\____/  /_/    \\_\\_____/   \\/   |______|_| \\_|  |_|   \\____/|_|  \\_\\______|_____/ ");
-            Console.WriteLine("   ____                 ___                                                                     ");
-            Console.WriteLine("  / __ \\ ______ ______ / _ \\ ______ ______ ______ ______ ______ ______ ______ ______ ______ __ _ ");
-            Console.WriteLine(" | |  | |______|______| (_) |______|______|______|______|______|______|______|______|______|  \\ \\ ");
-            Console.WriteLine(" | |  | |______ ______ > _ < ______ ______ ______ ______ ______ ______ ______ ______ ______    > >");
-            Console.WriteLine(" | |__| |______|______| (_) |______|______|______|______|______|______|______|______|______|__/_/ ");
-            Console.WriteLine("  \\____/               \\___/                                                                   ");
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("o==|=======> Welcome hero! <=======|==o");
             Console.WriteLine("Please enter your name so you can begin your adventure!");
             this.hero.Name = Console.ReadLine();
             Console.WriteLine("Hello " + hero.Name + ".");
+            Console.ResetColor();
             this.Main();
         }
         
         public void Main() {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            
             Console.WriteLine("Please choose an option by entering a number.");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("1. View Stats");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("2. View Inventory");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("3. Visit Shop");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("4. Fight Monster");
+            Console.ResetColor();
             var input = Console.ReadLine();
             if (input == "1") {
                 this.Stats();
